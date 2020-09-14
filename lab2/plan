@@ -1,0 +1,23 @@
+REPL
+
+substitutions
+* ${variable} $PATH
+* $(expression)
+* 'simple' string
+* alias
+* wildcards
+-- *
+-- ?
+-- {}
+-- []
+
+
+# ; \ ${} $() `` "" '' * ? [] {} && || > |
+^D ^C ^L ^A ^E ^M
+ ~/.bashrc
+
+
+streams
+pipelines
+
+#!
