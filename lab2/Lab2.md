@@ -17,15 +17,15 @@ $unset key; echo 'key=value' > script.sh
 Запустите "скрипт". И попробуйте вывести значение переменной.
 (должно быть пусто, почему так?).
 ```shell script
-$bash script.sh                                                                     │
-$echo $key                                                                            │
+$bash script.sh
+$echo $key
 ```
 
 Запустите "скрипт" в этом же процессе. И попробуйте вывести значение переменной.
 (переменная должна присутствовать, почему так?).
-```shell script                                                                                                                  │streams
-$source script.sh                                                                   │pipelines
-$echo $key                                                                            │
+```shell script
+$source script.sh
+$echo $key
 ```
 Разберитесь, в чем же отличие.
 
@@ -33,19 +33,19 @@ $echo $key                                                                      
 
 Найдите все файлы устройств имя которых начинается с `std`.
 ```shell script
-$ls -l /dev/std*                                                                    │$cat plan 
-lr-xr-xr-x  1 root  wheel  0 May 31 21:52 /dev/stderr -> fd/2                                                          │bash run programs and print programs output
-lr-xr-xr-x  1 root  wheel  0 May 31 21:52 /dev/stdin -> fd/0                                                           │
+$ls -l /dev/std*
+lr-xr-xr-x  1 root  wheel  0 May 31 21:52 /dev/stderr -> fd/2
+lr-xr-xr-x  1 root  wheel  0 May 31 21:52 /dev/stdin -> fd/0
 lr-xr-xr-x  1 root  wheel  0 May 31 21:52 /dev/stdout -> fd/1
 ```
 
 Поиграйтесь в перенаправление вывода в них.
 ```shell script
-$echo hello                                                                         │
-hello                                                                                                                  │substitutions
-$echo hello > /dev/stdout                                                           │* ${variable} $PATH
-hello                                                                                                                  │* $(expression)
-$echo hello > /dev/fd/1                                                             │* 'simple' string
+$echo hello
+hello
+$echo hello > /dev/stdout
+hello
+$echo hello > /dev/fd/1
 hello
 ```
 
@@ -58,11 +58,11 @@ hello
 Пример
 
 ```shell script
-$who                                                                                │ ~/.bashrc
-ravil    console  May 31 21:53                                                                                         │
-ravil    ttys000  Jul 21 22:54                                                                                      │
-ravil    ttys007  Sep 12 16:36                                                                                         │streams
-$echo hello > /dev/ttys007  
+$who
+ravil    console  May 31 21:53
+ravil    ttys000  Jul 21 22:54
+ravil    ttys007  Sep 12 16:36
+$echo hello > /dev/ttys007
 ```
 
 Что произойдет? А если перенаправить в свой же терминал?
@@ -124,7 +124,7 @@ echo W42gs >> file
 
 
 ```shell script
-$./passgen 42                                                                   │bash run programs with parameters and makes substitutions for us
+$./passgen 42
 ET4d3ulxfJwsqytSVIvF5CO/ukyM4Qi++6+ciHJC+m
 ```
 
