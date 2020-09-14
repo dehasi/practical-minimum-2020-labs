@@ -1,0 +1,165 @@
+### Лабораторушка 2
+
+
+В домашнем каталоге (`~`) создайте папку (`mkdir`) `lab2` и перейдите в нее (`cd`).
+
+Убедитесь, что вы находитесь в папке `lab2` (`pwd`).
+
+
+#### Задание 1 
+Вы знаете что `bash` выполняет построчно переданный ему файл 
+(как впрочем любой интерпретатор).
+
+Создайте файл с переменными. Например
+```shell
+$unset key; echo 'key=value' > script.sh 
+```
+Запустите "скрипт". И попробуйте вывести значение переменной.
+(должно быть пусто, почему так?).
+```shell script
+$bash script.sh                                                                     │
+$echo $key                                                                            │
+```
+
+Запустите "скрипт" в этом же процессе. И попробуйте вывести значение переменной.
+(переменная должна присутствовать, почему так?).
+```shell script                                                                                                                  │streams
+$source script.sh                                                                   │pipelines
+$echo $key                                                                            │
+```
+Разберитесь, в чем же отличие.
+
+#### Задание 2
+
+Найдите все файлы устройств имя которых начинается с `std`.
+```shell script
+$ls -l /dev/std*                                                                    │$cat plan 
+lr-xr-xr-x  1 root  wheel  0 May 31 21:52 /dev/stderr -> fd/2                                                          │bash run programs and print programs output
+lr-xr-xr-x  1 root  wheel  0 May 31 21:52 /dev/stdin -> fd/0                                                           │
+lr-xr-xr-x  1 root  wheel  0 May 31 21:52 /dev/stdout -> fd/1
+```
+
+Поиграйтесь в перенаправление вывода в них.
+```shell script
+$echo hello                                                                         │
+hello                                                                                                                  │substitutions
+$echo hello > /dev/stdout                                                           │* ${variable} $PATH
+hello                                                                                                                  │* $(expression)
+$echo hello > /dev/fd/1                                                             │* 'simple' string
+hello
+```
+
+В чем же различие?
+
+Откройте несколько терминалов в разных окнах. 
+Узнайте какой номер принадлежит какому окну (`who`).
+Перенаправьте поток вывода из одного терминала в другой.
+
+Пример
+
+```shell script
+$who                                                                                │ ~/.bashrc
+ravil    console  May 31 21:53                                                                                         │
+ravil    ttys000  Jul 21 22:54                                                                                      │
+ravil    ttys007  Sep 12 16:36                                                                                         │streams
+$echo hello > /dev/ttys007  
+```
+
+Что произойдет? А если перенаправить в свой же терминал?
+
+#### Задание 3
+Создайте в текущем каталоге несколько папок и файлов с разными расширениями.
+
+Например так
+```shell script
+mkdir -p a/b; touch a/b/{a..h}.{c,h,py}
+```
+
+Найдите все файлы с опреденным расшитением (`find . -name "*.c"`)
+
+Удалите их (`xargs rm`) 
+
+#### Задание 4
+Создайте файл с рандомными строчками.
+Напрмер
+
+```shell script
+echo AAAA > file
+echo ABBB >> file
+echo ADBB >> file
+echo W^3gs >> file
+echo W42gs >> file
+```
+
+Выведите все строчки где есть определенное слово (`grep`)
+Выведите все строчки где нет такого слова (`grep -v`)
+
+Найдите их количество (`wc`)
+
+#### Задание 5
+
+Вы уже знаете много команд: `cd`, `cp`,  `ls`, `mv`, `wc`....
+
+Кажется, что любое сочетание двух букв может быть валидной программой.
+Давайте это проверим так ли это.
+
+Проитерируйтесь по всем двухбуквенным комбинациям (`for name in {a..z}{a..z};`)
+
+Проверьте, есть ли такая программа (`which -s $name`).
+
+Выведите количество (`wc`) всех найденных двухбуквенных программ.
+
+
+#### Задание 6
+Давайте соберем пайплайн для геренации паролей.
+
+- Возьмете поток байтов из `/dev/random` (`cat`),
+- Переведите поток байт в поток символов (`base64`)
+- Возьмите первые `N` символов (`head -cN`)
+
+- Запишите пайалайн в файл `passgen`
+- Сделайте файл исполняемым (`chmod`)
+- Добавьте шебанг (`#!/bin/bash`)
+- Принимайте `N` как параметр запуска скрипта (`$1`)
+
+
+```shell script
+$./passgen 42                                                                   │bash run programs with parameters and makes substitutions for us
+ET4d3ulxfJwsqytSVIvF5CO/ukyM4Qi++6+ciHJC+m
+```
+
+------
+#### Задание 7
+
+Системный вызов `fork` создает новый процесс (почти копию родителя).
+
+Запустите следующую программу и убедитесь.
+```shell script
+$ cat for.c
+
+#include <stdio.h>
+#include <unistd.h>
+
+int main(int argc, char *argv[]) {
+	int pid = fork();
+
+	if ( pid == 0 ) {
+		printf( "This is being printed from the child process\n" );
+	} else {
+		printf( "This is being printed in the parent process:\n"
+		        " - the process identifier (pid) of the child is %d\n", pid );
+	}
+	return 0;
+}
+```
+
+Делается это для того чтобы в дочернем процессе запустить другую программу.
+Давайте это сделаем, например так:
+```C
+char *params[4] = {"/bin/ls", "-l", "-a", NULL };
+char *env[] = {NULL };
+execve("/bin/ls", params, env);
+```
+
+Еще в процессе можно менять директорию `chdir("/");`
+Поэкспериментируйте. Позапускайте `ls` и  `pwd` из разных директорий.
