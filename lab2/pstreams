@@ -1,0 +1,9 @@
+#include<stdio.h>
+
+int main(int argc, char *argv[]) {
+
+    fprintf(stdout, "Hello world!(stdout)\n");
+    fprintf(stderr, "AAA! error!(stderr)\n");
+
+    return 1;
+}
