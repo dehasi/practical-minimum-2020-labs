@@ -1,0 +1,12 @@
+
+
+
+
+# ".*"
+text1 "text2" text3 "text4"
+
+# .*xfoo
+xfooxxxxxfoo2
+
+# az*?
+azzzzz

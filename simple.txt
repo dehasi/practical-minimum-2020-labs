@@ -1,0 +1,50 @@
+
+
+abcdefghijklmnopqurtuvwxyz
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+1234567890
+
+# Patterns . \d \D \w \W \s \S
+# Anchors \b \B ^ $
+# [] [^]
+# {} {min,} {min,max} * = 0-inf + = 1-inf ?=0-1
+# () \1 |
+
+Ha HaHa
+
+MetaCharacters (Need to be escaped):
+.[{()\^$|?*+
+
+coreyms.com
+
+321-555-4321
+123.555.1234
+
+123_555_4321
+123.555-4321
+
++79524651232
+ 89524651232
+
++316331828582
++119331542582
+
+cat
+bat
+rat
+pat
+
+bob
+pop
+lol
+loh
+
+nnooooo
+nno
+nn
+
+Mr. Schafer
+Mr Smith
+Ms Davis
+Mrs. Robinson
+Mr. T
